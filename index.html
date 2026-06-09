@@ -167,11 +167,76 @@
   .social-btn svg { width: 16px; height: 16px; fill: currentColor; }
   .social-btn.insta { color: #e1306c; }
   .social-btn.steam { color: #c7d5e0; }
+
+  .unmute-btn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: rgba(22, 24, 31, 0.8);
+    border: 1px solid #23252f;
+    color: #e5e7eb;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 18px;
+    transition: background 0.15s;
+    backdrop-filter: blur(6px);
+  }
+  .unmute-btn:hover { background: rgba(40, 42, 55, 0.9); }
+
+  .intro {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #080809;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease;
+  }
+  .intro.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .enter-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #e5e7eb;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    padding: 14px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .enter-btn:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.5);
+    color: #fff;
+  }
+  .main-content {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .main-content.show {
+    opacity: 1;
+  }
 </style>
 </head>
 <body>
 
-<video class="video-bg" autoplay loop playsinline>
+<div class="intro" id="intro"><button class="enter-btn" onclick="enter()">enter</button></div>
+
+<div class="main-content" id="main">
+<video class="video-bg" id="bgvid" autoplay loop playsinline muted>
   <source src="https://res.cloudinary.com/dw0wurnxh/video/upload/v1781033855/life_rvt1qr.mp4" type="video/mp4">
 </video>
 <div class="overlay"></div>
@@ -252,5 +317,30 @@
 
 </div>
 
+
+</div>
+
+<button class="unmute-btn" id="muteBtn" onclick="toggleMute()" title="Toggle sound">🔇</button>
+
+<script>
+  var vid = document.getElementById('bgvid');
+  var btn = document.getElementById('muteBtn');
+
+  function enter() {
+    var intro = document.getElementById('intro');
+    var main = document.getElementById('main');
+    intro.classList.add('hide');
+    main.classList.add('show');
+    vid.muted = false;
+    vid.play();
+    btn.textContent = '🔊';
+    setTimeout(function(){ intro.style.display = 'none'; }, 900);
+  }
+
+  function toggleMute() {
+    vid.muted = !vid.muted;
+    btn.textContent = vid.muted ? '🔇' : '🔊';
+  }
+</script>
 </body>
 </html>

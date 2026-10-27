@@ -230,6 +230,64 @@
   .main-content.show {
     opacity: 1;
   }
+ /* glass card with purple glow */
+.card {
+  max-width: 580px;
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(34,30,52,0.72), rgba(14,14,22,0.78));
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(167,139,250,0.28);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55), 0 0 40px rgba(139,92,246,0.18);
+}
+
+/* card fades up once, when you press "enter" */
+.main-content.show .card { animation: cardIn 0.9s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(14px) scale(.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* avatar ring and name */
+.avatar {
+  width: 78px; height: 78px;
+  border: 2px solid rgba(167,139,250,0.7);
+  box-shadow: 0 0 0 4px rgba(167,139,250,0.12), 0 0 22px rgba(139,92,246,0.45);
+}
+.username { font-size: 22px; letter-spacing: 0.5px; text-shadow: 0 0 18px rgba(167,139,250,0.55); }
+
+/* link rows */
+.link-row {
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  transition: transform .18s, border-color .18s, box-shadow .18s, background .18s;
+}
+.link-row:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(167,139,250,0.45);
+  box-shadow: 0 8px 24px rgba(139,92,246,0.22);
+}
+.link-icon { border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,0.4); }
+.action-btn { background: rgba(139,92,246,0.18); border-color: rgba(167,139,250,0.4); color: #e9e3ff; }
+.action-btn:hover { background: rgba(139,92,246,0.35); }
+
+/* round icons */
+.social-btn {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.08);
+  transition: transform .18s, box-shadow .18s, background .18s;
+}
+.social-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(139,92,246,0.3); }
+
+/* readable small text */
+.joined, .link-sub, .footer-meta { color: #9ca3af; }
+
+@media (prefers-reduced-motion: reduce) {
+  .main-content.show .card { animation: none; }
+  .link-row, .social-btn { transition: none; }
+}
 </style>
 </head>
 <body>
